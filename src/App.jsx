@@ -133,10 +133,13 @@ function App () {
   function guessWord () {
     setGameState(gameState => {
       if (wordIsNotComplete(gameState)) {
-        return { ...gameState, error: 'Word not complete.' }
+        return { ...gameState, error: 'Palabra incompleta.' }
       }
       if (!wordIsInDictionary(gameState)) {
-        return { ...gameState, error: 'Word not in dictionary.' }
+        return {
+          ...gameState,
+          error: 'Esta palabra no está en el diccionario.'
+        }
       }
 
       const newGameState = JSON.parse(JSON.stringify(gameState))
@@ -270,7 +273,7 @@ function App () {
           </div>
         ))}
       </div>
-      {error ? <div className='error'>{error}</div> : null}
+      <div className='error'>{error}</div>
       <div className='keyboard'>
         {['qwertyuiop', 'asdfghjkl', 'zxcvbnm'].map((row, rowIndex) => (
           <div key={rowIndex} className={`row row-${rowIndex}`}>
