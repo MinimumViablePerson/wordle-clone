@@ -98,6 +98,7 @@ function App () {
 
   function enterCharacter (char) {
     char = char.toUpperCase()
+    if (position.attempt > 5) return
     if (keyIsInvalid(char)) return
 
     setGameState(gameState => {
@@ -135,12 +136,12 @@ function App () {
       if (wordIsNotComplete(gameState)) {
         return { ...gameState, error: 'Palabra incompleta.' }
       }
-      if (!wordIsInDictionary(gameState)) {
-        return {
-          ...gameState,
-          error: 'Esta palabra no está en el diccionario.'
-        }
-      }
+      // if (!wordIsInDictionary(gameState)) {
+      //   return {
+      //     ...gameState,
+      //     error: 'Esta palabra no está en el diccionario.'
+      //   }
+      // }
 
       const newGameState = JSON.parse(JSON.stringify(gameState))
       const { attempts, position } = newGameState
@@ -233,14 +234,19 @@ function App () {
   }
 
   useEffect(() => {
-    window.addEventListener('keydown', e => {
+    if (position.attempt > 5) return
+
+    const handleKeyDown = e => {
       if (e.key === 'Enter') guessWord()
       if (e.key === 'ArrowLeft') goLeft()
       if (e.key === 'ArrowRight') goRight()
       if (e.key === 'Backspace') eraseCharacter()
       else enterCharacter(e.key)
-    })
-  }, [])
+    }
+
+    window.addEventListener('keydown', handleKeyDown)
+    return () => window.removeEventListener('keydown', handleKeyDown)
+  }, [position.attempt])
 
   return (
     <div className='App'>
@@ -263,6 +269,11 @@ function App () {
                     ? 'current'
                     : ''
                 }`}
+                style={{
+                  transition: `background-color 0s ${charIndex * 400 +
+                    200}ms ease`,
+                  animationDelay: charIndex * 400 + 'ms'
+                }}
                 onClick={() => {
                   updatePosition({ attempt: attemptIndex, char: charIndex })
                 }}
@@ -288,12 +299,18 @@ function App () {
             ))}
           </div>
         ))}
-        <div>
-          <button className='key enter' onClick={guessWord}>
-            Enter
-          </button>
+        <div className='row'>
           <button className='key delete' onClick={eraseCharacter}>
-            Delete
+            <img
+              src='https://www.svgrepo.com/show/48292/delete.svg'
+              alt='delete'
+            />
+          </button>
+          <button className='key enter' onClick={guessWord}>
+            <img
+              src='https://www.svgrepo.com/show/258678/send.svg'
+              alt='send'
+            />
           </button>
         </div>
       </div>

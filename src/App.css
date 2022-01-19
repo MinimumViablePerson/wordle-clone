@@ -49,6 +49,12 @@
   border-color: rgb(11, 173, 242);
 }
 
+.char.at-location,
+.char.in-word,
+.char.not-in-word {
+  animation: turn 400ms linear;
+}
+
 .char.in-word {
   background-color: rgb(188, 188, 65);
   color: white;
@@ -94,6 +100,9 @@
   border-radius: 3px;
   text-transform: uppercase;
   cursor: pointer;
+
+  display: grid;
+  place-items: center;
 }
 
 .key.in-word,
@@ -122,7 +131,7 @@
   filter: brightness(0.9);
 }
 
-.key.enter {
+.key.delete {
   margin-right: 0.2rem;
 }
 
@@ -130,4 +139,18 @@
 .key.delete {
   height: 35px;
   padding: 0 10px;
+}
+
+@keyframes turn {
+  0% {
+    transform: rotateX(0deg);
+  }
+
+  50% {
+    transform: rotateX(90deg);
+  }
+
+  100% {
+    transform: rotateX(0deg);
+  }
 }

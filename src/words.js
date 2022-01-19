@@ -751,6 +751,7 @@ export const wordsToPick = [
   'cabio',
   'cable',
   'cabos',
+  'calor',
   'cabra',
   'cacao',
   'cacen',
