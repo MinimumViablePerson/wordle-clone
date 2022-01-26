@@ -6,6 +6,12 @@
   padding: 1rem;
 }
 
+:root {
+  --in-word: 60, 49%;
+  --at-location: 139, 43%;
+  --not-in-word: 0, 0%;
+}
+
 .board {
   display: grid;
   justify-content: center;
@@ -24,7 +30,7 @@
   grid-auto-columns: 60px;
   grid-auto-rows: 60px;
 
-  gap: 1vw;
+  gap: 0.3rem;
 
   position: relative;
 }
@@ -56,21 +62,21 @@
 }
 
 .char.in-word {
-  background-color: rgb(188, 188, 65);
+  background-color: hsl(var(--in-word), 50%);
   color: white;
-  border-color: rgb(152, 152, 36);
+  border-color: hsl(var(--in-word), 30%);
 }
 
 .char.at-location {
-  background-color: rgb(61, 152, 90);
+  background-color: hsl(var(--at-location), 50%);
   color: white;
-  border-color: rgb(41, 116, 65);
+  border-color: hsl(var(--at-location), 30%);
 }
 
 .char.not-in-word {
-  background-color: rgb(133, 133, 133);
+  background-color: hsl(var(--not-in-word), 50%);
   color: white;
-  border-color: rgb(91, 91, 91);
+  border-color: hsl(var(--not-in-word), 30%);
 }
 
 .error {
